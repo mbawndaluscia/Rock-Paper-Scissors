@@ -3,11 +3,13 @@ class Cannon extends GameObject {
   char left;
   char right;
   char fire;
+  float speed;
   float theta;
   PVector aim;
   int player;
   int elapsed=0;
-  
+  boolean locked=false;
+  BulletObject nextBullet;
 
   Cannon(float posX, float posY, char _left, char _right, char _fire, float _theta, int _player) {
     this.pos=new PVector(posX, posY);
@@ -17,6 +19,8 @@ class Cannon extends GameObject {
     fire=_fire;
     theta=_theta;
     player=_player;
+    speed=6.0f;
+    randomBullet();
   }
 
 
@@ -26,7 +30,7 @@ class Cannon extends GameObject {
     aim.y = - cos(theta);
 
 
-    if (theta>PI*2.0f/3.0f) {
+    if (theta>PI*2/3) {
       if (keys[left])
       {
         theta -= 0.05f;
@@ -40,13 +44,15 @@ class Cannon extends GameObject {
 
     if (keys[fire]&&elapsed>20)
     {
-      elapsed=0;
-      PVector shootAim=aim;
-      shootAim.mult(5.0f);
-      shootAim.mult(player);
-      
-      Rock rock = new Rock(pos.x, pos.y, shootAim.x, shootAim.y, theta, player);
-      gameObjects.add(rock);
+      if (!locked) {
+        locked=true;
+
+
+        elapsed=0;
+        shootBullet();
+        gameObjects.remove(nextBullet);
+        randomBullet();
+      }
     }
   }
 
@@ -54,11 +60,12 @@ class Cannon extends GameObject {
 
   void render()
   {
-    text(aim.x, 55, 55);
-    text(aim.y, 55, 75);
-    text(pos.x, 55, 95);
-    text(pos.y, 55, 115);
-    text(theta, 55, 135);
+    strokeWeight(4);
+    if (player==1) {
+      colour=color(255, 0, 0);
+    } else {
+      colour=color(0, 0, 255);
+    }  
     pushMatrix(); 
     translate(pos.x, pos.y);
 
@@ -70,10 +77,41 @@ class Cannon extends GameObject {
     rectMode(CENTER);
     rect( 0, 0, 30, 100);
     ellipse(0, -50*player, 50, 50);
-
+    nextBullet.render();
     popMatrix();
+   
   }
 
+  void randomBullet() {
+
+    int r=int(random(3));
+    if (r==0) {
+      nextBullet = new Rock(22, 22, 0, 0, theta, player);
+      gameObjects.add(nextBullet );
+    } else if (r==1) {
+      nextBullet  = new Paper(pos.x, pos.y, 0, 0, theta, player);
+      gameObjects.add(nextBullet );
+    } else if (r==2) {
+      nextBullet = new Scissors(pos.x, pos.y, 0, 0, theta, player);
+      gameObjects.add(nextBullet );
+    }
+  }
+
+  void shootBullet() {
+    PVector shootAim=aim;
+    shootAim.mult(speed);
+    shootAim.mult(player);
+    if (nextBullet instanceof Rock) {
+      Rock rock = new Rock(pos.x, pos.y, shootAim.x, shootAim.y, theta, player);
+      gameObjects.add(rock);
+    } else if (nextBullet instanceof Paper) {
+      Paper paper = new Paper(pos.x, pos.y, shootAim.x, shootAim.y, theta, player);
+      gameObjects.add(paper);
+    } else if (nextBullet instanceof Scissors) {
+      Scissors scissors = new Scissors(pos.x, pos.y, shootAim.x, shootAim.y, theta, player);
+      gameObjects.add(scissors);
+    }
+  }
   void freeze() {
   }
 }

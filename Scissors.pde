@@ -1,16 +1,16 @@
-class Rock extends BulletObject {
+class Scissors extends BulletObject {
 
-  Rock() {
+  Scissors() {
   }
 
-  Rock(float startX, float startY, float velX, float velY, float theta, int player) {
+  Scissors(float startX, float startY, float velX, float velY, float theta, int player) {
     super(startX, startY, velX, velY, theta, player);
   }
 
   void update() {
 
     pos.sub(vel);
-
+    
 
     if ((pos.x > borderR-radius) || (pos.x < borderL+radius)) {
       vel.x = vel.x * -1;
@@ -20,16 +20,13 @@ class Rock extends BulletObject {
     }
   }
 
-
-  void render() {
+  void render()
+  {
     strokeWeight(4);
     stroke(187);
     fill(colour);
-    ellipse(pos.x, pos.y, radius*2, radius*2);
-    rectMode(CENTER);
-    // strokeWeight(1);
-    //stroke(0);
-    rect(pos.x, pos.y, radius, radius);
+
+    arc(pos.x, pos.y, radius*2, radius*2, -QUARTER_PI, PI+QUARTER_PI, PIE);
   }
 }
 
