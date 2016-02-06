@@ -10,7 +10,7 @@ class Scissors extends BulletObject {
   void update() {
 
     pos.sub(vel);
-    
+
 
     if ((pos.x > borderR-radius) || (pos.x < borderL+radius)) {
       vel.x = vel.x * -1;
@@ -25,8 +25,11 @@ class Scissors extends BulletObject {
     strokeWeight(4);
     stroke(187);
     fill(colour);
-
-    arc(pos.x, pos.y, radius*2, radius*2, -QUARTER_PI, PI+QUARTER_PI, PIE);
+    if (player==1) {
+      arc(pos.x, pos.y, radius*2, radius*2, -QUARTER_PI, PI+QUARTER_PI, PIE);
+    } else {
+      arc(pos.x, pos.y, radius*2, radius*2,PI -QUARTER_PI, 2*PI+QUARTER_PI, PIE);
+    }
   }
 }
 

@@ -27,8 +27,6 @@ class Rock extends BulletObject {
     fill(colour);
     ellipse(pos.x, pos.y, radius*2, radius*2);
     rectMode(CENTER);
-    // strokeWeight(1);
-    //stroke(0);
     rect(pos.x, pos.y, radius, radius);
   }
 }

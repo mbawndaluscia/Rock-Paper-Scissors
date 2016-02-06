@@ -1,28 +1,31 @@
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 Cannon P1Cannon;
 Cannon P2Cannon;
-Post[] posts=new Post[7];
+Post[] posts=new Post[5];
+
+int p1Score, p2Score=0;
 void setup() {
 
   size(900, 700);
   strokeWeight(4);
 
-  P1Cannon=new Cannon(width/2, height-50, 'Q', 'E', 'W', PI, 1);
-  P2Cannon=new Cannon(width/2, 50, 'L', 'J', 'K', PI, -1);
+  P1Cannon=new Cannon(width/2, height-90, 'Q', 'E', 'W', PI, 1);
+  P2Cannon=new Cannon(width/2, 90, 'L', 'J', 'K', PI, -1);
   gameObjects.add(P1Cannon);
   gameObjects.add(P2Cannon);
 
-  for (int i=0; i<7; i++) {
-    posts[i]=new Post();
+
+
+  posts[0]=new Post(width*5/8, height/2-120, 3.0f);
+  posts[1]=new Post(width/4, height/2-60, -3.0f);
+  posts[2]=new Post(width/2, height/2, 3.0f);
+  posts[3]=new Post(width*3/4, height/2+60, -3.0f);
+  posts[4]=new Post(width*3/8, height/2+120, 3.0f);
+
+  for (int i=0; i<5; i++) {
+
     gameObjects.add(posts[i]);
   }
-  posts[0].pos=new PVector(width*3/8, height/3);
-  posts[1].pos=new PVector(width*5/8, height/3);
-  posts[2].pos=new PVector(width/4, height/2);
-  posts[3].pos=new PVector(width/2, height/2);
-  posts[4].pos=new PVector(width*3/4, height/2);
-  posts[5].pos=new PVector(width*3/8, height*2/3);
-  posts[6].pos=new PVector(width*5/8, height*2/3);
 }
 void draw() {
   background(187);
@@ -36,6 +39,7 @@ void draw() {
   }
 
   checkCollisions();
+  drawScore();
 }
 
 boolean[] keys = new boolean[512];
@@ -70,8 +74,8 @@ void checkCollisions() {
             if (go.pos.dist(go2.pos) <=35.0f) {
               checkKill((BulletObject)go, (BulletObject)go2);
 
-              go.freeze();
-              go2.freeze();
+             // go.freeze();
+             // go2.freeze();
             }
           }
         }
@@ -81,10 +85,17 @@ void checkCollisions() {
 }
 
 void checkKill(BulletObject bo, BulletObject bo2) {
-  //if (bo.player!=bo2.player) {
+  boolean kill=false;
+  if (bo.player==bo2.player) {
+    if (bo.moving) {
+     
+      gameObjects.remove(bo2);
+    }
+  } else {
+
     if (bo instanceof Rock&&bo2 instanceof Paper) {
       gameObjects.remove(bo);
-
+      kill=true;
       if (bo.player==1) {
         P1Cannon.locked=false;
       } else {
@@ -92,7 +103,7 @@ void checkKill(BulletObject bo, BulletObject bo2) {
       }
     } else if (bo instanceof Paper&&bo2 instanceof Scissors) {
       gameObjects.remove(bo);
-
+      kill=true;
       if (bo.player==1) {
         P1Cannon.locked=false;
       } else {
@@ -100,7 +111,7 @@ void checkKill(BulletObject bo, BulletObject bo2) {
       }
     } else if (bo instanceof Scissors&&bo2 instanceof Rock) {
       gameObjects.remove(bo);
-
+      kill=true;
       if (bo.player==1) {
         P1Cannon.locked=false;
       } else {
@@ -108,7 +119,26 @@ void checkKill(BulletObject bo, BulletObject bo2) {
       }
     }
   }
-//}
+  if (bo.player!=bo2.player&&kill) {
+    updateScore(bo.player);
+  }
+}
+
+void updateScore(int player) {
+  if (player==1) {
+    p1Score++;
+  } else {
+    p2Score++;
+  }
+}
+
+void drawScore() {
+  textSize(28);
+  stroke(0);
+  text(p1Score, 10, 100);
+  text(p2Score, 10, height-100);
+}
+
 boolean checkOutsideArcs(PVector p1, PVector p2) {
   if (p1.dist(P1Cannon.pos)<80||p1.dist(P2Cannon.pos)<80
     ||p2.dist(P1Cannon.pos)<80||p2.dist(P2Cannon.pos)<80) {
@@ -122,7 +152,7 @@ void drawGameScreen() {
   fill(0);
   rectMode(CORNER);
   rect(100, 10, width-200, height-20);
-  arc(width/2, height-10, 200, 200, -2*PI, PI/2);
-  arc(width/2, 10, 200, 200, -2*PI, PI/2);
+  arc(width/2, height-10, 300, 300, -PI, 0);
+  arc(width/2, 10, 300, 300, 0, PI);
 }
 

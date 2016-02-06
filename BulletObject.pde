@@ -5,10 +5,7 @@ abstract class BulletObject extends GameObject {
   
   float radius=15;
   boolean moving=true;
-  float borderL=100;
-  float borderR=width-100;
-  float borderT=10;
-  float borderB=height-10;
+  
   int player;
   BulletObject() {
   }
