@@ -77,25 +77,22 @@ class Cannon extends GameObject {
     rectMode(CENTER);
     rect( 0, 0, 30, 100);
     ellipse(0, -50*player, 50, 50);
-    
+
     popMatrix();
-   
+    nextBullet.render();
   }
 
   void randomBullet() {
 
     int r=int(random(3));
     if (r==0) {
-      nextBullet = new Rock(22, 22, 0, 0, theta, player);
-     
+      nextBullet = new Rock(pos.x, pos.y, 0, 0, theta, player);
     } else if (r==1) {
       nextBullet  = new Paper(pos.x, pos.y, 0, 0, theta, player);
-     
     } else if (r==2) {
       nextBullet = new Scissors(pos.x, pos.y, 0, 0, theta, player);
-     
     }
-     gameObjects.add(nextBullet );
+    gameObjects.add(nextBullet );
   }
 
   void shootBullet() {

@@ -22,12 +22,16 @@ class Rock extends BulletObject {
 
 
   void render() {
-    strokeWeight(4);
+    strokeWeight(2);
     stroke(187);
     fill(colour);
-    ellipse(pos.x, pos.y, radius*2, radius*2);
+
     rectMode(CENTER);
-    rect(pos.x, pos.y, radius, radius);
+    rect(pos.x, pos.y, radius*2, radius*2);
+   
+    line(pos.x-radius, pos.y-radius/2-1, pos.x+radius, pos.y-radius/2-1);
+    line(pos.x-radius, pos.y, pos.x+radius, pos.y);
+    line(pos.x-radius, pos.y+radius/2-1, pos.x+radius, pos.y+radius/2-1);
   }
 }
 

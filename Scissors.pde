@@ -22,7 +22,7 @@ class Scissors extends BulletObject {
 
   void render()
   {
-    strokeWeight(4);
+    strokeWeight(2);
     stroke(187);
     fill(colour);
     if (player==1) {

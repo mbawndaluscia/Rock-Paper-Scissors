@@ -20,10 +20,15 @@ class Paper extends BulletObject {
   }
 
   void render() {
-
+    strokeWeight(2);
     stroke(187);
-    fill(colour);
-    ellipse(pos.x, pos.y, radius*2, radius*2);
+    fill(255);
+    rectMode(CENTER);
+    rect(pos.x, pos.y, radius*2, radius*2);
+    stroke(colour);
+    line(pos.x-radius/2, pos.y-radius/2-1, pos.x+radius/2, pos.y-radius/2-1);
+    line(pos.x-radius/2, pos.y, pos.x+radius/2, pos.y);
+    line(pos.x-radius/2, pos.y+radius/2-1, pos.x+radius/2, pos.y+radius/2-1);
   }
 }
 
