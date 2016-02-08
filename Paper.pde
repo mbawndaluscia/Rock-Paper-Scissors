@@ -21,11 +21,11 @@ class Paper extends BulletObject {
 
   void render() {
     strokeWeight(2);
-    stroke(150);
+    stroke(colour);
     fill(255);
     rectMode(CENTER);
     rect(pos.x, pos.y, radius*2, radius*2);
-    stroke(colour);
+
     line(pos.x-radius+4, pos.y-radius/2-1, pos.x+radius-4, pos.y-radius/2-1);
     line(pos.x-radius+4, pos.y, pos.x+radius-4, pos.y);
     line(pos.x-radius+4, pos.y+radius/2+1, pos.x+radius-4, pos.y+radius/2+1);

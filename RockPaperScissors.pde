@@ -1,7 +1,7 @@
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 Cannon P1Cannon;
 Cannon P2Cannon;
-Post[] posts=new Post[5];
+Post[] posts=new Post[6];
 
 int p1Score, p2Score=0;
 void setup() {
@@ -19,8 +19,9 @@ void setup() {
   posts[0]=new Post(width*5/8, height/2-120, 3.0f);
   posts[1]=new Post(width/4, height/2-60, -3.0f);
   posts[2]=new Post(width/2, height/2, 3.0f);
-  posts[3]=new Post(width*3/4, height/2+60, -3.0f);
-  posts[4]=new Post(width*3/8, height/2+120, 3.0f);
+  posts[3]=new Post(width/2, height/2, -3.0f);
+  posts[4]=new Post(width*3/4, height/2+60, -3.0f);
+  posts[5]=new Post(width*3/8, height/2+120, 3.0f);
 
   for (int i=0; i<5; i++) {
 
@@ -65,7 +66,7 @@ void checkCollisions() {
         GameObject go2 = gameObjects.get(j);
 
         if (go2 instanceof Post) {
-          if (go.pos.dist(go2.pos) <=35.0f) {
+          if (go.pos.dist(go2.pos) <=30.0f) {
             go.freeze();
           }
         }
@@ -74,8 +75,8 @@ void checkCollisions() {
             if (go.pos.dist(go2.pos) <=30.0f) {
               checkKill((BulletObject)go, (BulletObject)go2);
 
-             // go.freeze();
-             // go2.freeze();
+              // go.freeze();
+              // go2.freeze();
             }
           }
         }
@@ -86,38 +87,45 @@ void checkCollisions() {
 
 void checkKill(BulletObject bo, BulletObject bo2) {
   boolean kill=false;
-  if (bo.player==bo2.player) {
-    if (bo.moving) {
-     
-      gameObjects.remove(bo2);
-    }
-  } else {
+  //  if (bo.player==bo2.player) {
+  //    if (bo.moving) {
+  //     
+  //      gameObjects.remove(bo2);
+  //    }
+  //  } else {
 
-    if (bo instanceof Rock&&bo2 instanceof Paper) {
-      gameObjects.remove(bo);
-      kill=true;
-//      if (bo.player==1) {
-//        P1Cannon.locked=false;
-//      } else {
-//        P2Cannon.locked=false;
-//      }
-    } else if (bo instanceof Paper&&bo2 instanceof Scissors) {
-      gameObjects.remove(bo);
-      kill=true;
-//      if (bo.player==1) {
-//        P1Cannon.locked=false;
-//      } else {
-//        P2Cannon.locked=false;
-//      }
-    } else if (bo instanceof Scissors&&bo2 instanceof Rock) {
-      gameObjects.remove(bo);
-      kill=true;
-//      if (bo.player==1) {
-//        P1Cannon.locked=false;
-//      } else {
-//        P2Cannon.locked=false;
-//      }
-    }
+  if (bo instanceof Rock&&bo2 instanceof Paper) {
+    gameObjects.remove(bo);
+    kill=true;
+    //      if (bo.player==1) {
+    //        P1Cannon.locked=false;
+    //      } else {
+    //        P2Cannon.locked=false;
+    //      }
+  } else if (bo instanceof Paper&&bo2 instanceof Scissors) {
+    gameObjects.remove(bo);
+    kill=true;
+    //      if (bo.player==1) {
+    //        P1Cannon.locked=false;
+    //      } else {
+    //        P2Cannon.locked=false;
+    //      }
+  } else if (bo instanceof Scissors&&bo2 instanceof Rock) {
+    gameObjects.remove(bo);
+    kill=true;
+    //      if (bo.player==1) {
+    //        P1Cannon.locked=false;
+    //      } else {
+    //        P2Cannon.locked=false;
+    //      }
+    // }
+  } else if (bo instanceof Star &&bo2 instanceof Star) {
+    gameObjects.remove(bo);
+     gameObjects.remove(bo2);
+    kill=true;
+  }else if (bo instanceof Star ) {
+     gameObjects.remove(bo2);
+    kill=true;
   }
   if (bo.player!=bo2.player&&kill) {
     updateScore(bo.player);

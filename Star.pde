@@ -23,16 +23,33 @@ class Star extends BulletObject {
 
   void render() {
     strokeWeight(2);
-    stroke(150);
+    stroke(colour);
+    fill(187);
+    ellipse(pos.x, pos.y, radius*2, radius*2);
+
     fill(colour);
 
-    rectMode(CENTER);
-    rect(pos.x, pos.y, radius*2, radius*2);
-   
-    line(pos.x-radius, pos.y-radius/2, pos.x+radius, pos.y-radius/2);
-    line(pos.x-radius, pos.y, pos.x+radius, pos.y);
-    line(pos.x-radius, pos.y+radius/2, pos.x+radius, pos.y+radius/2);
+
+
+
+    float points=5;
+    float  step = TWO_PI / points;
+    pushMatrix();
+    translate(pos.x, pos.y);
+    rotate(radians(-90*player)); // Point upwards  
+
+
+
+    beginShape();
+    int  n = 0;
+    for (int i = 0; i < points; ++i) {
+      vertex( cos( step * n) * radius, sin( step * n) * radius);
+      n += 2;
+    }
+    endShape(CLOSE);
+    popMatrix();
   }
- 
+
+
 }
 

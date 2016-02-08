@@ -56,6 +56,13 @@ class Cannon extends GameObject {
         }
       }
     }
+
+    if (elapsed>180) {
+      elapsed=0;
+      shootBullet();
+      gameObjects.remove(nextBullet);
+      randomBullet();
+    }
   }
 
 
@@ -76,7 +83,7 @@ class Cannon extends GameObject {
     rotate(theta);    
     stroke(colour);
     fill(colour);
-   
+
 
     rectMode(CENTER);
     rect( 0, 0, 40, 100);
@@ -90,13 +97,15 @@ class Cannon extends GameObject {
 
   void randomBullet() {
 
-    int r=int(random(3));
+    int r=int(random(4));
     if (r==0) {
       nextBullet = new Rock(pos.x, pos.y, 0, 0, theta, player);
     } else if (r==1) {
       nextBullet  = new Paper(pos.x, pos.y, 0, 0, theta, player);
     } else if (r==2) {
       nextBullet = new Scissors(pos.x, pos.y, 0, 0, theta, player);
+    } else if (r==3) {
+      nextBullet = new Star(pos.x, pos.y, 0, 0, theta, player);
     }
     gameObjects.add(nextBullet );
   }
@@ -114,6 +123,9 @@ class Cannon extends GameObject {
     } else if (nextBullet instanceof Scissors) {
       Scissors scissors = new Scissors(pos.x, pos.y, shootAim.x, shootAim.y, theta, player);
       gameObjects.add(scissors);
+    } else if (nextBullet instanceof Star) {
+      Star star = new Star(pos.x, pos.y, shootAim.x, shootAim.y, theta, player);
+      gameObjects.add(star);
     }
   }
   void freeze() {

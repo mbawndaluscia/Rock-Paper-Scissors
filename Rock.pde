@@ -23,7 +23,7 @@ class Rock extends BulletObject {
 
   void render() {
     strokeWeight(2);
-    stroke(150);
+    stroke(187);
     fill(colour);
 
     rectMode(CENTER);
