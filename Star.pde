@@ -1,14 +1,19 @@
 class Star extends BulletObject {
-
+  int elapsed;
   Star() {
   }
 
   Star(float startX, float startY, float velX, float velY, float theta, int player) {
     super(startX, startY, velX, velY, theta, player);
+    elapsed=0;
   }
 
   void update() {
-
+    elapsed++;
+    if (elapsed>180) {
+      gameObjects.remove(this);
+      explosion(pos.x,pos.y);
+    }
     pos.sub(vel);
 
 
@@ -49,7 +54,5 @@ class Star extends BulletObject {
     endShape(CLOSE);
     popMatrix();
   }
-
-
 }
 

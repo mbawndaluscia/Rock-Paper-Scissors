@@ -2,19 +2,17 @@ ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 Cannon P1Cannon;
 Cannon P2Cannon;
 Post[] posts=new Post[6];
-
+int powerUpTimer=0;
 int p1Score, p2Score=0;
+
 void setup() {
 
   size(900, 700);
   strokeWeight(4);
-
   P1Cannon=new Cannon(width/2, height-90, 'Q', 'E', 'W', PI, 1);
   P2Cannon=new Cannon(width/2, 90, 'L', 'J', 'K', PI, -1);
   gameObjects.add(P1Cannon);
   gameObjects.add(P2Cannon);
-
-
 
   posts[0]=new Post(width*5/8, height/2-120, 3.0f);
   posts[1]=new Post(width/4, height/2-60, -3.0f);
@@ -23,7 +21,7 @@ void setup() {
   posts[4]=new Post(width*3/4, height/2+60, -3.0f);
   posts[5]=new Post(width*3/8, height/2+120, 3.0f);
 
-  for (int i=0; i<5; i++) {
+  for (int i=0; i<6; i++) {
 
     gameObjects.add(posts[i]);
   }
@@ -31,7 +29,9 @@ void setup() {
 void draw() {
   background(150);
   drawGameScreen();
-
+  powerUpTimer++;
+  if (powerUpTimer>300) {
+  }
   for (int i = gameObjects.size () - 1; i >= 0; i --)
   {
     GameObject go = gameObjects.get(i);
@@ -95,7 +95,9 @@ void checkKill(BulletObject bo, BulletObject bo2) {
   //  } else {
 
   if (bo instanceof Rock&&bo2 instanceof Paper) {
+
     gameObjects.remove(bo);
+    explosion(bo.pos.x, bo.pos.y);
     kill=true;
     //      if (bo.player==1) {
     //        P1Cannon.locked=false;
@@ -104,6 +106,7 @@ void checkKill(BulletObject bo, BulletObject bo2) {
     //      }
   } else if (bo instanceof Paper&&bo2 instanceof Scissors) {
     gameObjects.remove(bo);
+    explosion(bo.pos.x, bo.pos.y);
     kill=true;
     //      if (bo.player==1) {
     //        P1Cannon.locked=false;
@@ -112,6 +115,7 @@ void checkKill(BulletObject bo, BulletObject bo2) {
     //      }
   } else if (bo instanceof Scissors&&bo2 instanceof Rock) {
     gameObjects.remove(bo);
+    explosion(bo.pos.x, bo.pos.y);
     kill=true;
     //      if (bo.player==1) {
     //        P1Cannon.locked=false;
@@ -121,10 +125,13 @@ void checkKill(BulletObject bo, BulletObject bo2) {
     // }
   } else if (bo instanceof Star &&bo2 instanceof Star) {
     gameObjects.remove(bo);
-     gameObjects.remove(bo2);
+    gameObjects.remove(bo2);
+    explosion(bo.pos.x, bo.pos.y);
+    explosion(bo2.pos.x, bo2.pos.y);
     kill=true;
-  }else if (bo instanceof Star ) {
-     gameObjects.remove(bo2);
+  } else if (bo instanceof Star ) {
+    gameObjects.remove(bo2);
+    explosion(bo.pos.x, bo.pos.y);
     kill=true;
   }
   if (bo.player!=bo2.player&&kill) {
@@ -155,6 +162,14 @@ boolean checkOutsideArcs(PVector p1, PVector p2) {
   }
   return true;
 }
+
+void explosion(float posX, float posY) {
+  strokeWeight(1);
+  stroke(255, 255, 0);
+  for (int i =40; i>31; i-=4)
+    ellipse(posX, posY, i, i);
+}
+
 
 void drawGameScreen() {
   stroke(255);
