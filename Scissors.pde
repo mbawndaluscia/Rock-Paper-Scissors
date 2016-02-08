@@ -23,9 +23,9 @@ class Scissors extends BulletObject {
   void render()
   {
     strokeWeight(2);
-    stroke(187);
+    stroke(150);
     fill(colour);
-    if (player==1) {
+    if (vel.y>0||(player==1&&vel.y==0)) {
       arc(pos.x, pos.y, radius*2, radius*2, -QUARTER_PI, PI+QUARTER_PI, PIE);
     } else {
       arc(pos.x, pos.y, radius*2, radius*2,PI -QUARTER_PI, 2*PI+QUARTER_PI, PIE);

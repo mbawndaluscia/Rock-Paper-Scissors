@@ -28,7 +28,7 @@ void setup() {
   }
 }
 void draw() {
-  background(187);
+  background(150);
   drawGameScreen();
 
   for (int i = gameObjects.size () - 1; i >= 0; i --)
@@ -71,7 +71,7 @@ void checkCollisions() {
         }
         if (checkOutsideArcs(go.pos, go2.pos)) {
           if (go2 instanceof BulletObject&&go!=go2 ) {
-            if (go.pos.dist(go2.pos) <=35.0f) {
+            if (go.pos.dist(go2.pos) <=30.0f) {
               checkKill((BulletObject)go, (BulletObject)go2);
 
              // go.freeze();
@@ -96,27 +96,27 @@ void checkKill(BulletObject bo, BulletObject bo2) {
     if (bo instanceof Rock&&bo2 instanceof Paper) {
       gameObjects.remove(bo);
       kill=true;
-      if (bo.player==1) {
-        P1Cannon.locked=false;
-      } else {
-        P2Cannon.locked=false;
-      }
+//      if (bo.player==1) {
+//        P1Cannon.locked=false;
+//      } else {
+//        P2Cannon.locked=false;
+//      }
     } else if (bo instanceof Paper&&bo2 instanceof Scissors) {
       gameObjects.remove(bo);
       kill=true;
-      if (bo.player==1) {
-        P1Cannon.locked=false;
-      } else {
-        P2Cannon.locked=false;
-      }
+//      if (bo.player==1) {
+//        P1Cannon.locked=false;
+//      } else {
+//        P2Cannon.locked=false;
+//      }
     } else if (bo instanceof Scissors&&bo2 instanceof Rock) {
       gameObjects.remove(bo);
       kill=true;
-      if (bo.player==1) {
-        P1Cannon.locked=false;
-      } else {
-        P2Cannon.locked=false;
-      }
+//      if (bo.player==1) {
+//        P1Cannon.locked=false;
+//      } else {
+//        P2Cannon.locked=false;
+//      }
     }
   }
   if (bo.player!=bo2.player&&kill) {
@@ -135,6 +135,7 @@ void updateScore(int player) {
 void drawScore() {
   textSize(28);
   stroke(0);
+  fill(0);
   text(p1Score, 10, 100);
   text(p2Score, 10, height-100);
 }

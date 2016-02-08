@@ -1,15 +1,16 @@
-class Paper extends BulletObject {
+class Star extends BulletObject {
 
-  Paper() {
+  Star() {
   }
 
-  Paper(float startX, float startY, float velX, float velY, float theta, int player) {
+  Star(float startX, float startY, float velX, float velY, float theta, int player) {
     super(startX, startY, velX, velY, theta, player);
   }
+
   void update() {
 
     pos.sub(vel);
-    theta+=0.1f;
+
 
     if ((pos.x > borderR-radius) || (pos.x < borderL+radius)) {
       vel.x = vel.x * -1;
@@ -19,16 +20,19 @@ class Paper extends BulletObject {
     }
   }
 
+
   void render() {
     strokeWeight(2);
     stroke(150);
-    fill(255);
+    fill(colour);
+
     rectMode(CENTER);
     rect(pos.x, pos.y, radius*2, radius*2);
-    stroke(colour);
-    line(pos.x-radius+4, pos.y-radius/2-1, pos.x+radius-4, pos.y-radius/2-1);
-    line(pos.x-radius+4, pos.y, pos.x+radius-4, pos.y);
-    line(pos.x-radius+4, pos.y+radius/2+1, pos.x+radius-4, pos.y+radius/2+1);
+   
+    line(pos.x-radius, pos.y-radius/2, pos.x+radius, pos.y-radius/2);
+    line(pos.x-radius, pos.y, pos.x+radius, pos.y);
+    line(pos.x-radius, pos.y+radius/2, pos.x+radius, pos.y+radius/2);
   }
+ 
 }
 

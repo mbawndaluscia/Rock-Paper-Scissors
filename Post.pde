@@ -16,7 +16,7 @@ class Post extends GameObject{
   }
   
   void render(){
-    stroke(187);
+    stroke(150);
     fill(90);
     ellipse(pos.x, pos.y, radius*2, radius*2);
   }

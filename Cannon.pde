@@ -45,13 +45,15 @@ class Cannon extends GameObject {
     if (keys[fire]&&elapsed>20)
     {
       if (!locked) {
-        locked=true;
+        if (elapsed>30) {
+          //locked=true;
 
 
-        elapsed=0;
-        shootBullet();
-        gameObjects.remove(nextBullet);
-        randomBullet();
+          elapsed=0;
+          shootBullet();
+          gameObjects.remove(nextBullet);
+          randomBullet();
+        }
       }
     }
   }
@@ -66,17 +68,21 @@ class Cannon extends GameObject {
     } else {
       colour=color(0, 0, 255);
     }  
+
     pushMatrix(); 
     translate(pos.x, pos.y);
 
 
     rotate(theta);    
     stroke(colour);
-    fill(0);
+    fill(colour);
+   
 
     rectMode(CENTER);
-    rect( 0, 0, 30, 100);
-    ellipse(0, -50*player, 50, 50);
+    rect( 0, 0, 40, 100);
+    ellipse(0, -60*player, 60, 60);
+
+
 
     popMatrix();
     nextBullet.render();
