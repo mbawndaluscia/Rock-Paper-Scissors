@@ -9,8 +9,8 @@ void setup() {
 
   size(900, 700);
   strokeWeight(4);
-  P1Cannon=new Cannon(width/2, height-90, 'Q', 'E', 'W', PI, 1);
-  P2Cannon=new Cannon(width/2, 90, 'L', 'J', 'K', PI, -1);
+  P1Cannon=new Cannon(width/2, height-90, 'Q', 'E', 'W', PI, 1, color(255, 70, 70));
+  P2Cannon=new Cannon(width/2, 90, 'L', 'J', 'K', PI, -1, color(40, 140, 40));
   gameObjects.add(P1Cannon);
   gameObjects.add(P2Cannon);
 
@@ -75,8 +75,6 @@ void checkCollisions() {
             if (go.pos.dist(go2.pos) <=30.0f) {
               checkKill((BulletObject)go, (BulletObject)go2);
 
-              // go.freeze();
-              // go2.freeze();
             }
           }
         }
@@ -87,52 +85,33 @@ void checkCollisions() {
 
 void checkKill(BulletObject bo, BulletObject bo2) {
   boolean kill=false;
-  //  if (bo.player==bo2.player) {
-  //    if (bo.moving) {
-  //     
-  //      gameObjects.remove(bo2);
-  //    }
-  //  } else {
-
+  
   if (bo instanceof Rock&&bo2 instanceof Paper) {
 
     gameObjects.remove(bo);
     explosion(bo.pos.x, bo.pos.y);
     kill=true;
-    //      if (bo.player==1) {
-    //        P1Cannon.locked=false;
-    //      } else {
-    //        P2Cannon.locked=false;
-    //      }
+    
   } else if (bo instanceof Paper&&bo2 instanceof Scissors) {
     gameObjects.remove(bo);
     explosion(bo.pos.x, bo.pos.y);
     kill=true;
-    //      if (bo.player==1) {
-    //        P1Cannon.locked=false;
-    //      } else {
-    //        P2Cannon.locked=false;
-    //      }
+    
   } else if (bo instanceof Scissors&&bo2 instanceof Rock) {
     gameObjects.remove(bo);
     explosion(bo.pos.x, bo.pos.y);
     kill=true;
-    //      if (bo.player==1) {
-    //        P1Cannon.locked=false;
-    //      } else {
-    //        P2Cannon.locked=false;
-    //      }
-    // }
+    
   } else if (bo instanceof Star &&bo2 instanceof Star) {
     gameObjects.remove(bo);
     gameObjects.remove(bo2);
     explosion(bo.pos.x, bo.pos.y);
     explosion(bo2.pos.x, bo2.pos.y);
-    kill=true;
+    
   } else if (bo instanceof Star ) {
     gameObjects.remove(bo2);
     explosion(bo.pos.x, bo.pos.y);
-    kill=true;
+   
   }
   if (bo.player!=bo2.player&&kill) {
     updateScore(bo.player);
@@ -166,10 +145,13 @@ boolean checkOutsideArcs(PVector p1, PVector p2) {
 void explosion(float posX, float posY) {
   strokeWeight(1);
   stroke(255, 255, 0);
-  for (int i =40; i>31; i-=4)
+  for (int i =48; i>31; i-=4)
     ellipse(posX, posY, i, i);
 }
 
+
+void openingScreen() {
+}
 
 void drawGameScreen() {
   stroke(255);

@@ -3,8 +3,8 @@ class Scissors extends BulletObject {
   Scissors() {
   }
 
-  Scissors(float startX, float startY, float velX, float velY, float theta, int player) {
-    super(startX, startY, velX, velY, theta, player);
+  Scissors(float startX, float startY, float velX, float velY, float theta, int player,color colour) {
+    super(startX, startY, velX, velY, theta, player,colour);
   }
 
   void update() {
@@ -23,7 +23,7 @@ class Scissors extends BulletObject {
   void render()
   {
     strokeWeight(2);
-    stroke(187);
+    stroke(200);
     fill(colour);
     if (vel.y>0||(player==1&&vel.y==0)) {
       arc(pos.x, pos.y, radius*2, radius*2, -QUARTER_PI, PI+QUARTER_PI, PIE);
