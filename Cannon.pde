@@ -19,7 +19,7 @@ class Cannon extends GameObject {
     fire=_fire;
     theta=_theta;
     player=_player;
-    speed=6.0f;
+    speed=8.0f;
     colour=_colour;
     randomBullet();
   }
@@ -31,13 +31,13 @@ class Cannon extends GameObject {
     aim.y = - cos(theta);
 
 
-    if (theta>PI*2/3) {
+    if (theta>PI*1/3) {
       if (keys[left])
       {
         theta -= 0.05f;
       }
     }
-    if (theta<PI+PI/3.0f) {
+    if (theta<PI+PI*2/3.0f) {
       if (keys[right]) {
         theta += 0.05f;
       }
@@ -47,9 +47,7 @@ class Cannon extends GameObject {
     {
       if (!locked) {
         if (elapsed>30) {
-          //locked=true;
-
-
+        
           elapsed=0;
           shootBullet();
           gameObjects.remove(nextBullet);
@@ -120,7 +118,7 @@ class Cannon extends GameObject {
       Scissors scissors = new Scissors(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour);
       gameObjects.add(scissors);
     } else if (nextBullet instanceof Star) {
-      Star star = new Star(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour);
+      Star star = new Star(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,color(255, 255, 0));
       gameObjects.add(star);
     }
   }

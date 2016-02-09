@@ -29,7 +29,7 @@ class Star extends BulletObject {
   void render() {
     strokeWeight(2);
     stroke(colour);
-    fill(200);
+    fill(0);
     ellipse(pos.x, pos.y, radius*2, radius*2);
 
     fill(colour);
