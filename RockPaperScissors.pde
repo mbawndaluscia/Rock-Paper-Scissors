@@ -1,65 +1,81 @@
-
+//Import minim for soud effects
 import ddf.minim.*;
-
-ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-Cannon P1Cannon;
-Cannon P2Cannon;
-Post[] posts=new Post[6];
-int powerUpTimer=0;
-int p1Score, p2Score=0;
-
-
 Minim minim;
+//Sound effects
 AudioSnippet rockSound;
 AudioSnippet paperSound;
 AudioSnippet scissorsSound;
 AudioSnippet starSound;
 
+//Arraylist of game objects
+ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+
+//Cannons
+Cannon P1Cannon;
+Cannon P2Cannon;
+
+//Array of stopper objects
+Stopper[] stoppers=new Stopper[6];
+
+
+//Score variables
+int p1Score, p2Score=0;
+
+
+
+
 void setup() {
 
   size(900, 700);
   strokeWeight(4);
-  P1Cannon=new Cannon(width/2, height-90, 'Q', 'E', 'W', PI, 1, color(160, 32, 240));
+
+  //Initialise game objects
+  P1Cannon=new Cannon(width/2, height-90, 'Q', 'E', 'W', PI, 1, color(148, 32, 211));
   P2Cannon=new Cannon(width/2, 90, 'L', 'J', 'K', PI, -1, color(40, 140, 40));
   gameObjects.add(P1Cannon);
   gameObjects.add(P2Cannon);
 
-  posts[0]=new Post(width*5/8, height/2-120, 3.0f);
-  posts[1]=new Post(width/4, height/2-60, -3.0f);
-  posts[2]=new Post(width/2, height/2, 3.0f);
-  posts[3]=new Post(width/2, height/2, -3.0f);
-  posts[4]=new Post(width*3/4, height/2+60, -3.0f);
-  posts[5]=new Post(width*3/8, height/2+120, 3.0f);
+  stoppers[0]=new Stopper(width*5/8, height/2-120, 3.0f);
+  stoppers[1]=new Stopper(width/4, height/2-60, -3.0f);
+  stoppers[2]=new Stopper(width/2, height/2, 3.0f);
+  stoppers[3]=new Stopper(width/2, height/2, -3.0f);
+  stoppers[4]=new Stopper(width*3/4, height/2+60, -3.0f);
+  stoppers[5]=new Stopper(width*3/8, height/2+120, 3.0f);
 
   for (int i=0; i<6; i++) {
-
-    gameObjects.add(posts[i]);
+    gameObjects.add(stoppers[i]);
   }
 
+  //Initialise sound effects
   Minim minim =new Minim(this);
   rockSound=minim.loadSnippet("rockSound.wav");
-  rockSound.setGain(-30);
   paperSound=minim.loadSnippet("paperSound.wav");
   scissorsSound=minim.loadSnippet("scissorsSound.wav");
   starSound=minim.loadSnippet("starSound.mp3");
+  rockSound.setGain(-30);//Too loud, reduce
   starSound.setGain(-30);
 }
 void draw() {
   background(150);
+  
   drawGameScreen();
-  powerUpTimer++;
-  if (powerUpTimer>300) {
-  }
+  
+  
+  //update and render game objects
   for (int i = gameObjects.size () - 1; i >= 0; i --)
   {
     GameObject go = gameObjects.get(i);
     go.update();
     go.render();
   }
+  //Check for collisions
   checkCollisions();
+  
+  //Draw updated score
   drawScore();
 }
 
+//Check for key presses
 boolean[] keys = new boolean[512];
 
 void keyPressed()
@@ -72,7 +88,10 @@ void keyReleased()
   keys[keyCode] = false;
 }
 
+//Collision check method
 void checkCollisions() {
+  
+  //Loop through game objects
   for (int i = gameObjects.size () - 1; i >= 0; i --)
   {
     GameObject go = gameObjects.get(i);
@@ -82,7 +101,7 @@ void checkCollisions() {
       {
         GameObject go2 = gameObjects.get(j);
         if ( go instanceof Star==false) {
-          if (go2 instanceof Post) {
+          if (go2 instanceof Stopper) {
             if (go.pos.dist(go2.pos) <=30.0f) {
               go.freeze();
             }
@@ -163,8 +182,8 @@ boolean checkOutsideArcs(PVector p1, PVector p2) {
 void explosion(float posX, float posY) {
   strokeWeight(1);
   stroke(255, 255, 0);
-  fill(0);
-  for (int i =48; i>31; i-=4)
+  fill(24);
+  for (int i =48; i>=12; i-=4)
     ellipse(posX, posY, i, i);
 }
 
@@ -176,7 +195,7 @@ void openingScreen() {
 
 void drawGameScreen() {
   stroke(255);
-  fill(0);
+  fill(24);
   rectMode(CORNER);
   rect(100, 10, width-200, height-20);
   arc(width/2, height-10, 300, 300, -PI, 0);

@@ -3,8 +3,8 @@ class Star extends BulletObject {
   Star() {
   }
 
-  Star(float startX, float startY, float velX, float velY, float theta, int player,color colour) {
-    super(startX, startY, velX, velY, theta, player,colour);
+  Star(float startX, float startY, float velX, float velY, float theta, int player, color colour) {
+    super(startX, startY, velX, velY, theta, player, colour);
     elapsed=0;
   }
 
@@ -12,7 +12,7 @@ class Star extends BulletObject {
     elapsed++;
     if (elapsed>180) {
       gameObjects.remove(this);
-      explosion(pos.x,pos.y);
+      explosion(pos.x, pos.y);
     }
     pos.sub(vel);
 
@@ -28,27 +28,23 @@ class Star extends BulletObject {
 
   void render() {
     strokeWeight(2);
+
     stroke(colour);
-    fill(0);
+    fill(24);
     ellipse(pos.x, pos.y, radius*2, radius*2);
-
     fill(colour);
-
-
-
-
+    strokeWeight(4);
     float points=5;
     float  step = TWO_PI / points;
+
     pushMatrix();
     translate(pos.x, pos.y);
     rotate(radians(-90*player)); // Point upwards  
 
-
-
     beginShape();
     int  n = 0;
     for (int i = 0; i < points; ++i) {
-      vertex( cos( step * n) * radius, sin( step * n) * radius);
+      vertex( cos( step * n) * radius/2, sin( step * n) * radius/2);
       n += 2;
     }
     endShape(CLOSE);

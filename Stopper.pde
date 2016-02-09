@@ -1,10 +1,10 @@
-class Post extends GameObject {
+class Stopper extends GameObject {
   float radius=15;
   float vel;
-  Post() {
+  Stopper() {
   }
 
-  Post(float posX, float posY, float _vel) {
+  Stopper(float posX, float posY, float _vel) {
     this.pos=new PVector(posX, posY);
     vel=_vel;
   }

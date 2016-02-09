@@ -99,7 +99,7 @@ class Cannon extends GameObject {
     } else if (r<6) {
       nextBullet = new Scissors(pos.x, pos.y, 0, 0, theta, player,colour);
     } else if (r==6) {
-      nextBullet = new Star(pos.x, pos.y, 0, 0, theta, player,colour);
+      nextBullet = new Star(pos.x, pos.y, 0, 0, theta, player,color(255,215,0));
     }
     gameObjects.add(nextBullet );
   }
@@ -118,7 +118,7 @@ class Cannon extends GameObject {
       Scissors scissors = new Scissors(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour);
       gameObjects.add(scissors);
     } else if (nextBullet instanceof Star) {
-      Star star = new Star(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,color(255, 255, 0));
+      Star star = new Star(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,color(255, 215, 0));
       gameObjects.add(star);
     }
   }
