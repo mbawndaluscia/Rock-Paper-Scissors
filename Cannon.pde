@@ -93,13 +93,13 @@ class Cannon extends GameObject {
 
     int r=int(random(7));
     if (r<2) {
-      nextBullet = new Rock(pos.x, pos.y, 0, 0, theta, player,colour);
+      nextBullet = new Rock(pos.x, pos.y, 0, 0, theta, player,colour,2);
     } else if (r<4) {
-      nextBullet  = new Paper(pos.x, pos.y, 0, 0, theta, player,colour);
+      nextBullet  = new Paper(pos.x, pos.y, 0, 0, theta, player,colour,2);
     } else if (r<6) {
-      nextBullet = new Scissors(pos.x, pos.y, 0, 0, theta, player,colour);
+      nextBullet = new Scissors(pos.x, pos.y, 0, 0, theta, player,colour,2);
     } else if (r==6) {
-      nextBullet = new Star(pos.x, pos.y, 0, 0, theta, player,color(255,215,0));
+      nextBullet = new Star(pos.x, pos.y, 0, 0, theta, player,color(255,215,0),2);
     }
     gameObjects.add(nextBullet );
   }
@@ -109,16 +109,16 @@ class Cannon extends GameObject {
     shootAim.mult(speed);
     shootAim.mult(player);
     if (nextBullet instanceof Rock) {
-      Rock rock = new Rock(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour);
+      Rock rock = new Rock(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour,2);
       gameObjects.add(rock);
     } else if (nextBullet instanceof Paper) {
-      Paper paper = new Paper(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour);
+      Paper paper = new Paper(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour,2);
       gameObjects.add(paper);
     } else if (nextBullet instanceof Scissors) {
-      Scissors scissors = new Scissors(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour);
+      Scissors scissors = new Scissors(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,colour,2);
       gameObjects.add(scissors);
     } else if (nextBullet instanceof Star) {
-      Star star = new Star(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,color(255, 215, 0));
+      Star star = new Star(pos.x, pos.y, shootAim.x, shootAim.y, theta, player,color(255, 215, 0),2);
       gameObjects.add(star);
     }
   }

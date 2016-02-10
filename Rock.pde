@@ -3,8 +3,8 @@ class Rock extends BulletObject {
   Rock() {
   }
 
-  Rock(float startX, float startY, float velX, float velY, float theta, int player,color colour) {
-    super(startX, startY, velX, velY, theta, player,colour);
+  Rock(float startX, float startY, float velX, float velY, float theta, int player,color colour,int strokeW) {
+    super(startX, startY, velX, velY, theta, player,colour, strokeW);
   }
 
   void update() {
@@ -22,7 +22,7 @@ class Rock extends BulletObject {
 
 
   void render() {
-    strokeWeight(2);
+    strokeWeight(strokeW);
     stroke(200);
     fill(colour);
 

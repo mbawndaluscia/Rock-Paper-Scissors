@@ -3,8 +3,8 @@ class Star extends BulletObject {
   Star() {
   }
 
-  Star(float startX, float startY, float velX, float velY, float theta, int player, color colour) {
-    super(startX, startY, velX, velY, theta, player, colour);
+  Star(float startX, float startY, float velX, float velY, float theta, int player, color colour,int strokeW) {
+    super(startX, startY, velX, velY, theta, player, colour, strokeW);
     elapsed=0;
   }
 

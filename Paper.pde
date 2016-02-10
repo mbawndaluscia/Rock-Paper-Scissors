@@ -3,8 +3,8 @@ class Paper extends BulletObject {
   Paper() {
   }
 
-  Paper(float startX, float startY, float velX, float velY, float theta, int player,color colour) {
-    super(startX, startY, velX, velY, theta, player,colour);
+  Paper(float startX, float startY, float velX, float velY, float theta, int player,color colour,int strokeW) {
+    super(startX, startY, velX, velY, theta, player,colour, strokeW);
   }
   void update() {
 
@@ -20,15 +20,15 @@ class Paper extends BulletObject {
   }
 
   void render() {
-    strokeWeight(2);
+    strokeWeight(strokeW);
     stroke(colour);
     fill(255);
     rectMode(CENTER);
     rect(pos.x, pos.y, radius*2, radius*2);
 
-    line(pos.x-radius+4, pos.y-radius/2-1, pos.x+radius-4, pos.y-radius/2-1);
-    line(pos.x-radius+4, pos.y, pos.x+radius-4, pos.y);
-    line(pos.x-radius+4, pos.y+radius/2+1, pos.x+radius-4, pos.y+radius/2+1);
+    line(pos.x-radius+2*strokeW, pos.y-radius/2-1, pos.x+radius-2*strokeW, pos.y-radius/2-1);
+    line(pos.x-radius+2*strokeW, pos.y, pos.x+radius-2*strokeW, pos.y);
+    line(pos.x-radius+2*strokeW, pos.y+radius/2+1, pos.x+radius-2*strokeW, pos.y+radius/2+1);
   }
 }
 

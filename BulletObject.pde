@@ -4,18 +4,20 @@ abstract class BulletObject extends GameObject {
   float theta;
 
   float radius=15;
-  boolean moving=true;
+  
+  int strokeW;
 
   int player;
   BulletObject() {
   }
 
-  BulletObject(float startX, float startY, float velX, float velY, float _theta, int _player, color _colour) {
+  BulletObject(float startX, float startY, float velX, float velY, float _theta, int _player, color _colour,int _strokeW) {
     this.pos=new PVector(startX, startY);
     vel=new PVector(velX, velY);
     theta=_theta;
     player=_player;
     colour=_colour;
+    strokeW=_strokeW;
   }
 
 
@@ -23,14 +25,6 @@ abstract class BulletObject extends GameObject {
   void freeze() {
     vel.x=0;
     vel.y=0;
-    if (moving) {
-      moving=false;
-      if (player==1) {
-        P1Cannon.locked=false;
-      } else {
-        P2Cannon.locked=false;
-      }
-    }
   }
 }
 
